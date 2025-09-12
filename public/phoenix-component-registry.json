@@ -1,0 +1,515 @@
+{
+  "projectId": "0814245a-1a73-4625-bb72-cc8d4d495e51",
+  "userId": "hw8u8FgXeBcQGo9CRezTWmEivX92",
+  "version": "1.0.0",
+  "generatedAt": "2025-09-12T21:50:01.516Z",
+  "components": {
+    "phoenix-1757713801490": {
+      "phoenixId": "phoenix-1757713801490",
+      "componentName": "Error",
+      "filePath": "src/app/error.tsx",
+      "lineNumber": 5,
+      "columnNumber": 15,
+      "sourceCode": "export default function Error() {\n  return (\n    <div className=\"min-h-screen flex items-center justify-center\">\n      <div className=\"text-center\">\n        <h1 className=\"text-4xl font-bold mb-4\">500 - Server Error</h1>\n        <p className=\"text-xl mb-4\">Something went wrong. Please try again later.</p>\n        <a href=\"/\" className=\"text-blue-500 hover:text-blue-700 underline\">\n          Return to Home\n        </a>\n      </div>\n    </div>\n  );\n}",
+      "props": [],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "moderate"
+      }
+    },
+    "phoenix-1757713801491": {
+      "phoenixId": "phoenix-1757713801491",
+      "componentName": "GamePage",
+      "filePath": "src/app/games/[id]/page.tsx",
+      "lineNumber": 34,
+      "columnNumber": 15,
+      "sourceCode": "export default async function GamePage({ params }: GamePageProps) {\n  const { id } = await params;\n  const game = getGameById(id);\n\n  if (!game) {\n    notFound();\n  }\n\n  return (\n    <div className=\"min-h-screen bg-background\">\n      {/* Header */}\n      <header className=\"border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60\">\n        <div className=\"container max-w-6xl mx-auto px-4 py-4\">\n          <div className=\"flex items-center justify-between\">\n            <div className=\"flex items-center gap-4\">\n              <Button variant=\"ghost\" size=\"sm\" asChild>\n                <Link href=\"/\">\n                  <ArrowLeft className=\"w-4 h-4 mr-2\" />\n                  Back to Games\n                </Link>\n              </Button>\n              <Separator orientation=\"vertical\" className=\"h-6\" />\n              <div>\n                <h1 className=\"font-bold text-xl\">{game.title}</h1>\n                <div className=\"flex items-center gap-2\">\n                  <Badge variant=\"outline\">{game.category}</Badge>\n                  <Badge variant=\"secondary\" className={\n                    game.difficulty === \"Easy\" ? \"bg-green-100 text-green-800\" :\n                    game.difficulty === \"Medium\" ? \"bg-yellow-100 text-yellow-800\" :\n                    \"bg-red-100 text-red-800\"\n                  }>\n                    {game.difficulty}\n                  </Badge>\n                </div>\n              </div>\n            </div>\n            <div className=\"flex items-center gap-2\">\n              <div className=\"flex items-center gap-1 text-sm text-muted-foreground\">\n                <Users className=\"w-4 h-4\" />\n                <span>{game.playCount.toLocaleString()}</span>\n              </div>\n              <div className=\"flex items-center gap-1 text-sm text-muted-foreground\">\n                <Star className=\"w-4 h-4 text-yellow-500\" />\n                <span>{game.averageRating.toFixed(1)}</span>\n              </div>\n              <Button variant=\"outline\" size=\"sm\">\n                <Share className=\"w-4 h-4 mr-2\" />\n                Share\n              </Button>\n            </div>\n          </div>\n        </div>\n      </header>\n\n      <main className=\"container max-w-6xl mx-auto px-4 py-8\">\n        <div className=\"grid grid-cols-1 lg:grid-cols-3 gap-8\">\n          {/* Game Area */}\n          <div className=\"lg:col-span-2\">\n            <Card className=\"mb-6\">\n              <CardContent className=\"p-6\">\n                <GameCanvas gameId={game.id} />\n              </CardContent>\n            </Card>\n\n            {/* Game Controls */}\n            <Card className=\"mb-6\">\n              <CardHeader>\n                <CardTitle className=\"flex items-center gap-2\">\n                  <Gamepad2 className=\"w-5 h-5\" />\n                  Game Controls\n                </CardTitle>\n              </CardHeader>\n              <CardContent>\n                <GameControls controls={game.controls} />\n              </CardContent>\n            </Card>\n\n            {/* Game Description */}\n            <Card>\n              <CardHeader>\n                <CardTitle className=\"flex items-center gap-2\">\n                  <Info className=\"w-5 h-5\" />\n                  About This Game\n                </CardTitle>\n              </CardHeader>\n              <CardContent>\n                <p className=\"text-muted-foreground mb-4\">{game.description}</p>\n                <div>\n                  <h4 className=\"font-semibold mb-2\">How to Play:</h4>\n                  <p className=\"text-sm text-muted-foreground\">{game.instructions}</p>\n                </div>\n              </CardContent>\n            </Card>\n          </div>\n\n          {/* Sidebar */}\n          <div className=\"space-y-6\">\n            {/* Game Stats */}\n            <Card>\n              <CardHeader>\n                <CardTitle>Game Stats</CardTitle>\n              </CardHeader>\n              <CardContent className=\"space-y-4\">\n                <div className=\"flex justify-between\">\n                  <span className=\"text-muted-foreground\">Total Plays</span>\n                  <span className=\"font-semibold\">{game.playCount.toLocaleString()}</span>\n                </div>\n                <div className=\"flex justify-between\">\n                  <span className=\"text-muted-foreground\">Average Rating</span>\n                  <span className=\"font-semibold flex items-center gap-1\">\n                    <Star className=\"w-4 h-4 text-yellow-500\" />\n                    {game.averageRating.toFixed(1)}\n                  </span>\n                </div>\n                <div className=\"flex justify-between\">\n                  <span className=\"text-muted-foreground\">Difficulty</span>\n                  <Badge variant=\"secondary\" className={\n                    game.difficulty === \"Easy\" ? \"bg-green-100 text-green-800\" :\n                    game.difficulty === \"Medium\" ? \"bg-yellow-100 text-yellow-800\" :\n                    \"bg-red-100 text-red-800\"\n                  }>\n                    {game.difficulty}\n                  </Badge>\n                </div>\n                <div className=\"flex justify-between\">\n                  <span className=\"text-muted-foreground\">Category</span>\n                  <Badge variant=\"outline\">{game.category}</Badge>\n                </div>\n              </CardContent>\n            </Card>\n\n            {/* Leaderboard */}\n            <Card>\n              <CardHeader>\n                <CardTitle className=\"flex items-center gap-2\">\n                  <Trophy className=\"w-5 h-5\" />\n                  Leaderboard\n                </CardTitle>\n              </CardHeader>\n              <CardContent>\n                <Leaderboard gameId={game.id} />\n              </CardContent>\n            </Card>\n\n            {/* Similar Games */}\n            <Card>\n              <CardHeader>\n                <CardTitle>Similar Games</CardTitle>\n              </CardHeader>\n              <CardContent>\n                <div className=\"space-y-3\">\n                  {mockGames\n                    .filter(g => g.category === game.category && g.id !== game.id)\n                    .slice(0, 3)\n                    .map((similarGame) => (\n                      <Link \n                        key={similarGame.id} \n                        href={`/games/${similarGame.id}`}\n                        className=\"block p-3 rounded-lg border hover:bg-muted/50 transition-colors\"\n                      >\n                        <div className=\"font-medium text-sm\">{similarGame.title}</div>\n                        <div className=\"text-xs text-muted-foreground flex items-center gap-2 mt-1\">\n                          <span className=\"flex items-center gap-1\">\n                            <Star className=\"w-3 h-3 text-yellow-500\" />\n                            {similarGame.averageRating.toFixed(1)}\n                          </span>\n                          <span className=\"flex items-center gap-1\">\n                            <Users className=\"w-3 h-3\" />\n                            {(similarGame.playCount / 1000).toFixed(0)}K\n                          </span>\n                        </div>\n                      </Link>\n                    ))\n                  }\n                </div>\n              </CardContent>\n            </Card>\n          </div>\n        </div>\n      </main>\n    </div>\n  );\n}",
+      "props": [
+        {
+          "name": "params",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801492": {
+      "phoenixId": "phoenix-1757713801492",
+      "componentName": "GlobalError",
+      "filePath": "src/app/global-error.tsx",
+      "lineNumber": 5,
+      "columnNumber": 15,
+      "sourceCode": "export default function GlobalError({\n  error,\n  reset,\n}: {\n  error: Error & { digest?: string }\n  reset: () => void\n}) {\n  return (\n    <html>\n      <body>\n        <div style={{\n          minHeight: '100vh',\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'center',\n          padding: '2rem',\n          fontFamily: 'system-ui, sans-serif'\n        }}>\n          <div style={{ textAlign: 'center', maxWidth: '500px' }}>\n            <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#dc2626' }}>\n              Something went wrong!\n            </h1>\n            <p style={{ fontSize: '1.1rem', marginBottom: '2rem', color: '#6b7280' }}>\n              The application encountered an unexpected error. This is likely temporary.\n            </p>\n            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>\n              <button\n                onClick={reset}\n                style={{\n                  padding: '0.75rem 1.5rem',\n                  backgroundColor: '#3b82f6',\n                  color: 'white',\n                  border: 'none',\n                  borderRadius: '0.5rem',\n                  cursor: 'pointer',\n                  fontSize: '1rem'\n                }}\n              >\n                Try Again\n              </button>\n              <button\n                onClick={() => window.location.href = '/'}\n                style={{\n                  padding: '0.75rem 1.5rem',\n                  backgroundColor: '#6b7280',\n                  color: 'white',\n                  border: 'none',\n                  borderRadius: '0.5rem',\n                  cursor: 'pointer',\n                  fontSize: '1rem'\n                }}\n              >\n                Go Home\n              </button>\n            </div>\n            {process.env.NODE_ENV === 'development' && (\n              <details style={{ marginTop: '2rem', textAlign: 'left' }}>\n                <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>\n                  Error Details (Development Only)\n                </summary>\n                <pre style={{ \n                  marginTop: '1rem', \n                  padding: '1rem', \n                  backgroundColor: '#f3f4f6', \n                  borderRadius: '0.5rem',\n                  fontSize: '0.875rem',\n                  overflow: 'auto'\n                }}>\n                  {error.message}\n                  {error.stack && '\\n\\nStack trace:\\n' + error.stack}\n                </pre>\n              </details>\n            )}\n          </div>\n        </div>\n      </body>\n    </html>\n  )\n}",
+      "props": [
+        {
+          "name": "error",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "reset",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801493": {
+      "phoenixId": "phoenix-1757713801493",
+      "componentName": "RootLayout",
+      "filePath": "src/app/layout.tsx",
+      "lineNumber": 26,
+      "columnNumber": 15,
+      "sourceCode": "export default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return (\n    <html lang=\"en\" suppressHydrationWarning>\n      <body\n        className={`${geistSans.variable} ${geistMono.variable} antialiased`}\n      >\n        <QueryProvider>\n          <ThemeProvider\n            attribute=\"class\"\n            defaultTheme=\"system\"\n            enableSystem\n            disableTransitionOnChange\n          >\n            <TooltipProvider>\n              <Navigation />\n              {children}\n              <Toaster />\n              <Sonner />\n            </TooltipProvider>\n          </ThemeProvider>\n        </QueryProvider>\n      </body>\n    </html>\n  );\n}",
+      "props": [
+        {
+          "name": "children",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "moderate"
+      }
+    },
+    "phoenix-1757713801494": {
+      "phoenixId": "phoenix-1757713801494",
+      "componentName": "Loading",
+      "filePath": "src/app/loading.tsx",
+      "lineNumber": 1,
+      "columnNumber": 15,
+      "sourceCode": "export default function Loading() {\n  return (\n    <div className=\"min-h-screen flex items-center justify-center\">\n      <div className=\"text-center\">\n        <p className=\"text-xl\">Loading...</p>\n      </div>\n    </div>\n  );\n}",
+      "props": [],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "moderate"
+      }
+    },
+    "phoenix-1757713801495": {
+      "phoenixId": "phoenix-1757713801495",
+      "componentName": "NotFound",
+      "filePath": "src/app/not-found.tsx",
+      "lineNumber": 3,
+      "columnNumber": 15,
+      "sourceCode": "export default function NotFound() {\n  return (\n    <div className=\"min-h-screen flex items-center justify-center\">\n      <div className=\"text-center\">\n        <h1 className=\"text-4xl font-bold mb-4\">404 - Page Not Found</h1>\n        <p className=\"text-xl mb-4\">The page you are looking for does not exist.</p>\n        <a href=\"/\" className=\"text-blue-500 hover:text-blue-700 underline\">\n          Return to Home\n        </a>\n      </div>\n    </div>\n  );\n}",
+      "props": [],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "moderate"
+      }
+    },
+    "phoenix-1757713801496": {
+      "phoenixId": "phoenix-1757713801496",
+      "componentName": "HomePage",
+      "filePath": "src/app/page.tsx",
+      "lineNumber": 11,
+      "columnNumber": 15,
+      "sourceCode": "export default function HomePage() {\n  const featuredGames = getFeaturedGames();\n  const newGames = getNewGames();\n  const popularGames = getPopularGames().slice(0, 6);\n\n  return (\n    <div className=\"min-h-screen\">\n      {/* Hero Section */}\n      <section className=\"relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20 px-4\">\n        <div className=\"container max-w-6xl mx-auto text-center\">\n          <div className=\"mb-8\">\n            <h1 className=\"text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent\">\n              Welcome to GameHub\n            </h1>\n            <p className=\"text-xl text-muted-foreground max-w-2xl mx-auto mb-8\">\n              Play the best collection of free browser-based mini-games. \n              From puzzles to arcade classics, find your next favorite game!\n            </p>\n            <div className=\"flex items-center justify-center gap-4 flex-wrap\">\n              <Button size=\"lg\" className=\"gap-2\" asChild>\n                <Link href=\"#featured\">\n                  <Play className=\"w-5 h-5\" />\n                  Start Playing\n                </Link>\n              </Button>\n              <Button variant=\"outline\" size=\"lg\" className=\"gap-2\" asChild>\n                <Link href=\"/categories\">\n                  <Gamepad2 className=\"w-5 h-5\" />\n                  Browse Games\n                </Link>\n              </Button>\n            </div>\n          </div>\n          \n          {/* Quick Stats */}\n          <div className=\"grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto\">\n            <div className=\"text-center\">\n              <div className=\"text-2xl font-bold text-primary\">50+</div>\n              <div className=\"text-sm text-muted-foreground\">Games</div>\n            </div>\n            <div className=\"text-center\">\n              <div className=\"text-2xl font-bold text-primary\">100K+</div>\n              <div className=\"text-sm text-muted-foreground\">Players</div>\n            </div>\n            <div className=\"text-center\">\n              <div className=\"text-2xl font-bold text-primary\">6</div>\n              <div className=\"text-sm text-muted-foreground\">Categories</div>\n            </div>\n            <div className=\"text-center\">\n              <div className=\"text-2xl font-bold text-primary\">Free</div>\n              <div className=\"text-sm text-muted-foreground\">Forever</div>\n            </div>\n          </div>\n        </div>\n      </section>\n\n      {/* Game Categories */}\n      <section className=\"py-16 px-4\">\n        <div className=\"container max-w-6xl mx-auto\">\n          <h2 className=\"text-3xl font-bold text-center mb-12\">Game Categories</h2>\n          <div className=\"grid grid-cols-2 md:grid-cols-3 gap-6\">\n            {gameCategories.map((category) => (\n              <Link key={category.id} href={`/categories/${category.id}`}>\n                <Card className=\"group hover:shadow-lg transition-all duration-300 hover:scale-105\">\n                  <CardContent className=\"p-6 text-center\">\n                    <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${category.color} flex items-center justify-center text-white text-2xl`}>\n                      {category.icon}\n                    </div>\n                    <h3 className=\"font-semibold text-lg mb-2 group-hover:text-primary transition-colors\">\n                      {category.name}\n                    </h3>\n                    <p className=\"text-sm text-muted-foreground\">\n                      {category.description}\n                    </p>\n                  </CardContent>\n                </Card>\n              </Link>\n            ))}\n          </div>\n        </div>\n      </section>\n\n      {/* Featured Games */}\n      <section id=\"featured\" className=\"py-16 px-4 bg-muted/30\">\n        <div className=\"container max-w-6xl mx-auto\">\n          <div className=\"flex items-center justify-between mb-8\">\n            <div className=\"flex items-center gap-3\">\n              <Trophy className=\"w-8 h-8 text-primary\" />\n              <h2 className=\"text-3xl font-bold\">Featured Games</h2>\n            </div>\n            <Button variant=\"outline\" asChild>\n              <Link href=\"/featured\">View All</Link>\n            </Button>\n          </div>\n          <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\">\n            {featuredGames.map((game) => (\n              <GameCard key={game.id} {...game} />\n            ))}\n          </div>\n        </div>\n      </section>\n\n      {/* New Games */}\n      <section className=\"py-16 px-4\">\n        <div className=\"container max-w-6xl mx-auto\">\n          <div className=\"flex items-center justify-between mb-8\">\n            <div className=\"flex items-center gap-3\">\n              <Star className=\"w-8 h-8 text-secondary\" />\n              <h2 className=\"text-3xl font-bold\">New Games</h2>\n            </div>\n            <Button variant=\"outline\" asChild>\n              <Link href=\"/new\">View All</Link>\n            </Button>\n          </div>\n          <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\">\n            {newGames.map((game) => (\n              <GameCard key={game.id} {...game} />\n            ))}\n          </div>\n        </div>\n      </section>\n\n      {/* Popular Games */}\n      <section className=\"py-16 px-4 bg-muted/30\">\n        <div className=\"container max-w-6xl mx-auto\">\n          <div className=\"flex items-center justify-between mb-8\">\n            <div className=\"flex items-center gap-3\">\n              <TrendingUp className=\"w-8 h-8 text-primary\" />\n              <h2 className=\"text-3xl font-bold\">Most Popular</h2>\n            </div>\n            <Button variant=\"outline\" asChild>\n              <Link href=\"/popular\">View All</Link>\n            </Button>\n          </div>\n          <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\">\n            {popularGames.map((game) => (\n              <GameCard key={game.id} {...game} />\n            ))}\n          </div>\n        </div>\n      </section>\n\n      {/* Call to Action */}\n      <section className=\"py-16 px-4\">\n        <div className=\"container max-w-4xl mx-auto text-center\">\n          <h2 className=\"text-3xl font-bold mb-4\">Ready to Start Playing?</h2>\n          <p className=\"text-xl text-muted-foreground mb-8\">\n            Join thousands of players enjoying our collection of free browser games!\n          </p>\n          <div className=\"flex items-center justify-center gap-4 flex-wrap\">\n            <Button size=\"lg\" className=\"gap-2\" asChild>\n              <Link href=\"/games\">\n                <Play className=\"w-5 h-5\" />\n                Play Now\n              </Link>\n            </Button>\n            <Button variant=\"outline\" size=\"lg\" asChild>\n              <Link href=\"/about\">\n                Learn More\n              </Link>\n            </Button>\n          </div>\n        </div>\n      </section>\n    </div>\n  );\n}",
+      "props": [],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801497": {
+      "phoenixId": "phoenix-1757713801497",
+      "componentName": "GameCanvas",
+      "filePath": "src/components/game-canvas.tsx",
+      "lineNumber": 11,
+      "columnNumber": 7,
+      "sourceCode": "export function GameCanvas({ gameId }: GameCanvasProps) {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  const [isPlaying, setIsPlaying] = useState(false);\n  const [isSoundEnabled, setIsSoundEnabled] = useState(true);\n  const [score, setScore] = useState(0);\n  const [gameState, setGameState] = useState<\"idle\" | \"playing\" | \"paused\" | \"gameOver\">(\"idle\");\n\n  useEffect(() => {\n    if (!canvasRef.current) return;\n\n    const canvas = canvasRef.current;\n    const ctx = canvas.getContext(\"2d\");\n    if (!ctx) return;\n\n    // Set canvas size\n    canvas.width = canvas.offsetWidth;\n    canvas.height = canvas.offsetHeight;\n\n    // Initialize game based on gameId\n    initializeGame(canvas, ctx, gameId);\n  }, [gameId]);\n\n  const initializeGame = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, gameId: string) => {\n    // Clear canvas\n    ctx.fillStyle = \"#f8f9fa\";\n    ctx.fillRect(0, 0, canvas.width, canvas.height);\n\n    // Draw game-specific content based on gameId\n    switch (gameId) {\n      case \"tic-tac-toe\":\n        drawTicTacToeBoard(ctx, canvas.width, canvas.height);\n        break;\n      case \"snake-classic\":\n        drawSnakeGame(ctx, canvas.width, canvas.height);\n        break;\n      case \"memory-match\":\n        drawMemoryGame(ctx, canvas.width, canvas.height);\n        break;\n      default:\n        drawPlaceholderGame(ctx, canvas.width, canvas.height, gameId);\n    }\n  };\n\n  const drawTicTacToeBoard = (ctx: CanvasRenderingContext2D, width: number, height: number) => {\n    const boardSize = Math.min(width, height) * 0.8;\n    const startX = (width - boardSize) / 2;\n    const startY = (height - boardSize) / 2;\n    const cellSize = boardSize / 3;\n\n    // Clear background\n    ctx.fillStyle = \"#ffffff\";\n    ctx.fillRect(0, 0, width, height);\n\n    // Draw grid lines\n    ctx.strokeStyle = \"#4A2DEF\";\n    ctx.lineWidth = 3;\n\n    // Vertical lines\n    for (let i = 1; i < 3; i++) {\n      ctx.beginPath();\n      ctx.moveTo(startX + i * cellSize, startY);\n      ctx.lineTo(startX + i * cellSize, startY + boardSize);\n      ctx.stroke();\n    }\n\n    // Horizontal lines\n    for (let i = 1; i < 3; i++) {\n      ctx.beginPath();\n      ctx.moveTo(startX, startY + i * cellSize);\n      ctx.lineTo(startX + boardSize, startY + i * cellSize);\n      ctx.stroke();\n    }\n\n    // Add sample X and O\n    ctx.font = `${cellSize * 0.6}px Arial`;\n    ctx.textAlign = \"center\";\n    ctx.textBaseline = \"middle\";\n    \n    ctx.fillStyle = \"#4A2DEF\";\n    ctx.fillText(\"X\", startX + cellSize * 0.5, startY + cellSize * 0.5);\n    \n    ctx.fillStyle = \"#FF5733\";\n    ctx.fillText(\"O\", startX + cellSize * 2.5, startY + cellSize * 1.5);\n\n    // Instructions\n    ctx.font = \"16px Arial\";\n    ctx.fillStyle = \"#666\";\n    ctx.textAlign = \"center\";\n    ctx.fillText(\"Click to start playing!\", width / 2, height - 30);\n  };\n\n  const drawSnakeGame = (ctx: CanvasRenderingContext2D, width: number, height: number) => {\n    // Clear background\n    ctx.fillStyle = \"#1a1a1a\";\n    ctx.fillRect(0, 0, width, height);\n\n    const gridSize = 20;\n    const cols = Math.floor(width / gridSize);\n    const rows = Math.floor(height / gridSize);\n\n    // Draw grid\n    ctx.strokeStyle = \"#333\";\n    ctx.lineWidth = 1;\n    for (let x = 0; x <= cols; x++) {\n      ctx.beginPath();\n      ctx.moveTo(x * gridSize, 0);\n      ctx.lineTo(x * gridSize, height);\n      ctx.stroke();\n    }\n    for (let y = 0; y <= rows; y++) {\n      ctx.beginPath();\n      ctx.moveTo(0, y * gridSize);\n      ctx.lineTo(width, y * gridSize);\n      ctx.stroke();\n    }\n\n    // Draw sample snake\n    const snakeBody = [\n      { x: 10, y: 10 },\n      { x: 9, y: 10 },\n      { x: 8, y: 10 }\n    ];\n\n    ctx.fillStyle = \"#4A2DEF\";\n    snakeBody.forEach(segment => {\n      ctx.fillRect(segment.x * gridSize + 1, segment.y * gridSize + 1, gridSize - 2, gridSize - 2);\n    });\n\n    // Draw sample food\n    ctx.fillStyle = \"#FF5733\";\n    ctx.fillRect(15 * gridSize + 1, 8 * gridSize + 1, gridSize - 2, gridSize - 2);\n\n    // Instructions\n    ctx.font = \"16px Arial\";\n    ctx.fillStyle = \"#fff\";\n    ctx.textAlign = \"center\";\n    ctx.fillText(\"Use arrow keys to move!\", width / 2, height - 30);\n  };\n\n  const drawMemoryGame = (ctx: CanvasRenderingContext2D, width: number, height: number) => {\n    // Clear background\n    ctx.fillStyle = \"#f0f0f0\";\n    ctx.fillRect(0, 0, width, height);\n\n    const cardSize = 60;\n    const cols = 4;\n    const rows = 3;\n    const spacing = 10;\n    const totalWidth = cols * cardSize + (cols - 1) * spacing;\n    const totalHeight = rows * cardSize + (rows - 1) * spacing;\n    const startX = (width - totalWidth) / 2;\n    const startY = (height - totalHeight) / 2;\n\n    for (let row = 0; row < rows; row++) {\n      for (let col = 0; col < cols; col++) {\n        const x = startX + col * (cardSize + spacing);\n        const y = startY + row * (cardSize + spacing);\n\n        // Draw card background\n        ctx.fillStyle = \"#4A2DEF\";\n        ctx.fillRect(x, y, cardSize, cardSize);\n\n        // Draw card border\n        ctx.strokeStyle = \"#fff\";\n        ctx.lineWidth = 2;\n        ctx.strokeRect(x, y, cardSize, cardSize);\n\n        // Draw question mark\n        ctx.font = \"24px Arial\";\n        ctx.fillStyle = \"#fff\";\n        ctx.textAlign = \"center\";\n        ctx.textBaseline = \"middle\";\n        ctx.fillText(\"?\", x + cardSize / 2, y + cardSize / 2);\n      }\n    }\n\n    // Instructions\n    ctx.font = \"16px Arial\";\n    ctx.fillStyle = \"#666\";\n    ctx.textAlign = \"center\";\n    ctx.fillText(\"Click cards to reveal and match pairs!\", width / 2, height - 20);\n  };\n\n  const drawPlaceholderGame = (ctx: CanvasRenderingContext2D, width: number, height: number, gameId: string) => {\n    // Clear background with gradient\n    const gradient = ctx.createLinearGradient(0, 0, width, height);\n    gradient.addColorStop(0, \"#4A2DEF20\");\n    gradient.addColorStop(1, \"#FF573320\");\n    ctx.fillStyle = gradient;\n    ctx.fillRect(0, 0, width, height);\n\n    // Draw game placeholder\n    ctx.font = \"24px Arial\";\n    ctx.fillStyle = \"#4A2DEF\";\n    ctx.textAlign = \"center\";\n    ctx.textBaseline = \"middle\";\n    ctx.fillText(`${gameId.replace(\"-\", \" \").toUpperCase()}`, width / 2, height / 2 - 20);\n\n    ctx.font = \"16px Arial\";\n    ctx.fillStyle = \"#666\";\n    ctx.fillText(\"Game coming soon!\", width / 2, height / 2 + 20);\n  };\n\n  const handlePlayPause = () => {\n    if (gameState === \"idle\") {\n      setGameState(\"playing\");\n      setIsPlaying(true);\n    } else if (gameState === \"playing\") {\n      setGameState(\"paused\");\n      setIsPlaying(false);\n    } else if (gameState === \"paused\") {\n      setGameState(\"playing\");\n      setIsPlaying(true);\n    }\n  };\n\n  const handleRestart = () => {\n    setGameState(\"idle\");\n    setIsPlaying(false);\n    setScore(0);\n    \n    if (canvasRef.current) {\n      const ctx = canvasRef.current.getContext(\"2d\");\n      if (ctx) {\n        initializeGame(canvasRef.current, ctx, gameId);\n      }\n    }\n  };\n\n  return (\n    <div className=\"w-full\">\n      {/* Game Header */}\n      <div className=\"flex items-center justify-between mb-4 p-3 bg-muted/50 rounded-lg\">\n        <div className=\"flex items-center gap-4\">\n          <div className=\"text-sm\">\n            <span className=\"font-medium\">Score: </span>\n            <span className=\"text-primary font-bold\">{score}</span>\n          </div>\n          <div className=\"text-sm\">\n            <span className=\"font-medium\">Status: </span>\n            <span className={`capitalize font-medium ${\n              gameState === \"playing\" ? \"text-green-600\" :\n              gameState === \"paused\" ? \"text-yellow-600\" :\n              gameState === \"gameOver\" ? \"text-red-600\" :\n              \"text-muted-foreground\"\n            }`}>\n              {gameState === \"idle\" ? \"Ready\" : gameState}\n            </span>\n          </div>\n        </div>\n        \n        <div className=\"flex items-center gap-2\">\n          <Button\n            variant=\"outline\"\n            size=\"sm\"\n            onClick={() => setIsSoundEnabled(!isSoundEnabled)}\n          >\n            {isSoundEnabled ? <Volume2 className=\"w-4 h-4\" /> : <VolumeX className=\"w-4 h-4\" />}\n          </Button>\n          <Button variant=\"outline\" size=\"sm\" onClick={handleRestart}>\n            <RotateCcw className=\"w-4 h-4\" />\n          </Button>\n          <Button onClick={handlePlayPause}>\n            {isPlaying ? <Pause className=\"w-4 h-4\" /> : <Play className=\"w-4 h-4\" />}\n          </Button>\n        </div>\n      </div>\n\n      {/* Game Canvas */}\n      <div className=\"relative\">\n        <canvas\n          ref={canvasRef}\n          className=\"game-canvas w-full border rounded-lg bg-white\"\n          style={{ aspectRatio: \"4/3\", maxHeight: \"500px\" }}\n          onClick={() => {\n            if (gameState === \"idle\") {\n              handlePlayPause();\n            }\n          }}\n        />\n        \n        {gameState === \"idle\" && (\n          <div className=\"absolute inset-0 flex items-center justify-center bg-black/10 rounded-lg\">\n            <Button size=\"lg\" onClick={handlePlayPause}>\n              <Play className=\"w-6 h-6 mr-2\" />\n              Start Game\n            </Button>\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}",
+      "props": [
+        {
+          "name": "gameId",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly",
+        "state-management",
+        "side-effects",
+        "lifecycle-management"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "hooks": [
+          "useRef",
+          "useState",
+          "useState",
+          "useState",
+          "useState",
+          "useEffect"
+        ],
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801498": {
+      "phoenixId": "phoenix-1757713801498",
+      "componentName": "GameCard",
+      "filePath": "src/components/game-card.tsx",
+      "lineNumber": 19,
+      "columnNumber": 7,
+      "sourceCode": "export function GameCard({\n  id,\n  title,\n  description,\n  category,\n  thumbnail,\n  difficulty,\n  playCount,\n  averageRating,\n  isNew = false,\n  isFeatured = false\n}: GameCardProps) {\n  const getDifficultyColor = (difficulty: string) => {\n    switch (difficulty) {\n      case \"Easy\": return \"bg-green-100 text-green-800\";\n      case \"Medium\": return \"bg-yellow-100 text-yellow-800\";\n      case \"Hard\": return \"bg-red-100 text-red-800\";\n      default: return \"bg-gray-100 text-gray-800\";\n    }\n  };\n\n  const formatPlayCount = (count: number) => {\n    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`;\n    if (count >= 1000) return `${(count / 1000).toFixed(1)}K`;\n    return count.toString();\n  };\n\n  return (\n    <Link href={`/games/${id}`} className=\"block\">\n      <Card className=\"game-card group relative overflow-hidden border-2 hover:border-primary/50\">\n        {/* Status badges */}\n        <div className=\"absolute top-3 left-3 z-10 flex gap-2\">\n          {isNew && (\n            <Badge className=\"bg-secondary text-secondary-foreground\">\n              NEW\n            </Badge>\n          )}\n          {isFeatured && (\n            <Badge className=\"bg-primary text-primary-foreground\">\n              <Trophy className=\"w-3 h-3 mr-1\" />\n              Featured\n            </Badge>\n          )}\n        </div>\n\n        {/* Thumbnail */}\n        <div className=\"relative h-48 bg-gradient-to-br from-primary/10 to-secondary/10 overflow-hidden\">\n          {thumbnail ? (\n            <img \n              src={thumbnail} \n              alt={title}\n              className=\"w-full h-full object-cover group-hover:scale-105 transition-transform duration-300\"\n            />\n          ) : (\n            <div className=\"w-full h-full flex items-center justify-center\">\n              <Play className=\"w-16 h-16 text-primary/40\" />\n            </div>\n          )}\n          \n          {/* Play overlay */}\n          <div className=\"absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center\">\n            <div className=\"bg-primary text-primary-foreground rounded-full p-3 scale-0 group-hover:scale-100 transition-transform duration-300\">\n              <Play className=\"w-6 h-6\" />\n            </div>\n          </div>\n        </div>\n\n        <CardContent className=\"p-4\">\n          {/* Category badge */}\n          <div className=\"mb-2\">\n            <Badge variant=\"outline\" className=\"text-xs\">\n              {category}\n            </Badge>\n          </div>\n\n          {/* Title and description */}\n          <h3 className=\"font-semibold text-lg mb-2 group-hover:text-primary transition-colors\">\n            {title}\n          </h3>\n          <p className=\"text-sm text-muted-foreground mb-3 line-clamp-2\">\n            {description}\n          </p>\n\n          {/* Game stats */}\n          <div className=\"flex items-center justify-between text-sm text-muted-foreground\">\n            <div className=\"flex items-center gap-4\">\n              <div className=\"flex items-center gap-1\">\n                <Users className=\"w-4 h-4\" />\n                <span>{formatPlayCount(playCount)}</span>\n              </div>\n              <div className=\"flex items-center gap-1\">\n                <span>⭐</span>\n                <span>{averageRating.toFixed(1)}</span>\n              </div>\n            </div>\n            <Badge \n              variant=\"secondary\" \n              className={`text-xs ${getDifficultyColor(difficulty)}`}\n            >\n              {difficulty}\n            </Badge>\n          </div>\n        </CardContent>\n      </Card>\n    </Link>\n  );\n}",
+      "props": [
+        {
+          "name": "id",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "category",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "thumbnail",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "difficulty",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "playCount",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "averageRating",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "isNew",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "isFeatured",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801499": {
+      "phoenixId": "phoenix-1757713801499",
+      "componentName": "GameControls",
+      "filePath": "src/components/game-controls.tsx",
+      "lineNumber": 10,
+      "columnNumber": 7,
+      "sourceCode": "export function GameControls({ controls }: GameControlsProps) {\n  return (\n    <div className=\"space-y-4\">\n      {/* Keyboard Controls */}\n      {controls.keyboard && controls.keyboard.length > 0 && (\n        <div className=\"space-y-2\">\n          <div className=\"flex items-center gap-2 text-sm font-medium\">\n            <Keyboard className=\"w-4 h-4\" />\n            Keyboard Controls\n          </div>\n          <div className=\"grid grid-cols-1 sm:grid-cols-2 gap-2\">\n            {controls.keyboard.map((control, index) => (\n              <div key={index} className=\"flex items-center justify-between p-2 bg-muted/50 rounded-lg\">\n                <Badge variant=\"outline\" className=\"font-mono text-xs\">\n                  {control.key}\n                </Badge>\n                <span className=\"text-sm text-muted-foreground\">\n                  {control.action}\n                </span>\n              </div>\n            ))}\n          </div>\n        </div>\n      )}\n\n      {/* Mouse Controls */}\n      {controls.mouse && controls.mouse.length > 0 && (\n        <div className=\"space-y-2\">\n          <div className=\"flex items-center gap-2 text-sm font-medium\">\n            <Mouse className=\"w-4 h-4\" />\n            Mouse Controls\n          </div>\n          <div className=\"grid grid-cols-1 sm:grid-cols-2 gap-2\">\n            {controls.mouse.map((control, index) => (\n              <div key={index} className=\"flex items-center justify-between p-2 bg-muted/50 rounded-lg\">\n                <Badge variant=\"outline\" className=\"text-xs\">\n                  {control.input}\n                </Badge>\n                <span className=\"text-sm text-muted-foreground\">\n                  {control.action}\n                </span>\n              </div>\n            ))}\n          </div>\n        </div>\n      )}\n\n      {/* Touch Controls */}\n      {controls.touch && controls.touch.length > 0 && (\n        <div className=\"space-y-2\">\n          <div className=\"flex items-center gap-2 text-sm font-medium\">\n            <Smartphone className=\"w-4 h-4\" />\n            Touch Controls\n          </div>\n          <div className=\"grid grid-cols-1 sm:grid-cols-2 gap-2\">\n            {controls.touch.map((control, index) => (\n              <div key={index} className=\"flex items-center justify-between p-2 bg-muted/50 rounded-lg\">\n                <Badge variant=\"outline\" className=\"text-xs\">\n                  {control.gesture}\n                </Badge>\n                <span className=\"text-sm text-muted-foreground\">\n                  {control.action}\n                </span>\n              </div>\n            ))}\n          </div>\n        </div>\n      )}\n\n      {/* No controls defined */}\n      {(!controls.keyboard || controls.keyboard.length === 0) &&\n       (!controls.mouse || controls.mouse.length === 0) &&\n       (!controls.touch || controls.touch.length === 0) && (\n        <div className=\"text-center py-8 text-muted-foreground\">\n          <Keyboard className=\"w-8 h-8 mx-auto mb-2 opacity-50\" />\n          <p>No specific controls defined for this game.</p>\n          <p className=\"text-sm\">Follow the on-screen instructions to play.</p>\n        </div>\n      )}\n    </div>\n  );\n}",
+      "props": [
+        {
+          "name": "controls",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801500": {
+      "phoenixId": "phoenix-1757713801500",
+      "componentName": "Leaderboard",
+      "filePath": "src/components/leaderboard.tsx",
+      "lineNumber": 42,
+      "columnNumber": 7,
+      "sourceCode": "export function Leaderboard({ gameId, period = \"all_time\" }: LeaderboardProps) {\n  const entries = mockLeaderboardData[gameId] || [];\n\n  const getRankIcon = (rank: number) => {\n    switch (rank) {\n      case 1:\n        return <Trophy className=\"w-5 h-5 text-yellow-500\" />;\n      case 2:\n        return <Medal className=\"w-5 h-5 text-gray-400\" />;\n      case 3:\n        return <Award className=\"w-5 h-5 text-amber-600\" />;\n      default:\n        return <span className=\"w-5 h-5 flex items-center justify-center text-sm font-bold text-muted-foreground\">#{rank}</span>;\n    }\n  };\n\n  const getRankColor = (rank: number) => {\n    switch (rank) {\n      case 1:\n        return \"bg-yellow-50 border-yellow-200\";\n      case 2:\n        return \"bg-gray-50 border-gray-200\";\n      case 3:\n        return \"bg-amber-50 border-amber-200\";\n      default:\n        return \"bg-background border-border\";\n    }\n  };\n\n  const formatScore = (score: number, gameId: string) => {\n    switch (gameId) {\n      case \"tic-tac-toe\":\n        return `${score} pts`;\n      case \"snake-classic\":\n        return `${score.toLocaleString()}`;\n      case \"memory-match\":\n        return `${score}s`;\n      default:\n        return score.toLocaleString();\n    }\n  };\n\n  const formatDate = (date: Date) => {\n    const now = new Date();\n    const diffTime = Math.abs(now.getTime() - date.getTime());\n    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));\n    \n    if (diffDays === 1) return \"Today\";\n    if (diffDays === 2) return \"Yesterday\";\n    if (diffDays <= 7) return `${diffDays - 1} days ago`;\n    return date.toLocaleDateString();\n  };\n\n  if (entries.length === 0) {\n    return (\n      <div className=\"text-center py-8 text-muted-foreground\">\n        <Trophy className=\"w-8 h-8 mx-auto mb-2 opacity-50\" />\n        <p className=\"text-sm\">No scores yet!</p>\n        <p className=\"text-xs\">Be the first to set a high score.</p>\n      </div>\n    );\n  }\n\n  return (\n    <div className=\"space-y-3\">\n      {entries.map((entry) => (\n        <div\n          key={`${entry.username}-${entry.rank}`}\n          className={`p-3 rounded-lg border transition-colors hover:bg-muted/50 ${getRankColor(entry.rank)}`}\n        >\n          <div className=\"flex items-center justify-between\">\n            <div className=\"flex items-center gap-3\">\n              <div className=\"flex-shrink-0\">\n                {getRankIcon(entry.rank)}\n              </div>\n              \n              <div className=\"flex items-center gap-2\">\n                <Avatar className=\"w-6 h-6\">\n                  <AvatarFallback className=\"text-xs\">\n                    {entry.username.slice(0, 2).toUpperCase()}\n                  </AvatarFallback>\n                </Avatar>\n                <div>\n                  <div className=\"font-medium text-sm\">{entry.username}</div>\n                  <div className=\"text-xs text-muted-foreground\">\n                    {formatDate(entry.date)}\n                  </div>\n                </div>\n              </div>\n            </div>\n            \n            <div className=\"text-right\">\n              <div className=\"font-bold text-sm\">\n                {formatScore(entry.score, gameId)}\n              </div>\n              {entry.rank <= 3 && (\n                <Badge variant=\"secondary\" className=\"text-xs\">\n                  Top {entry.rank}\n                </Badge>\n              )}\n            </div>\n          </div>\n        </div>\n      ))}\n      \n      {entries.length > 0 && (\n        <div className=\"text-center pt-2\">\n          <button className=\"text-xs text-primary hover:underline\">\n            View Full Leaderboard\n          </button>\n        </div>\n      )}\n    </div>\n  );\n}",
+      "props": [
+        {
+          "name": "gameId",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "period",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801501": {
+      "phoenixId": "phoenix-1757713801501",
+      "componentName": "Navigation",
+      "filePath": "src/components/navigation.tsx",
+      "lineNumber": 5,
+      "columnNumber": 7,
+      "sourceCode": "export function Navigation() {\n  return (\n    <nav className=\"border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50\">\n      <div className=\"container max-w-6xl mx-auto px-4\">\n        <div className=\"flex items-center justify-between h-16\">\n          {/* Logo */}\n          <Link href=\"/\" className=\"flex items-center space-x-2\">\n            <Gamepad2 className=\"h-8 w-8 text-primary\" />\n            <span className=\"font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent\">\n              GameHub\n            </span>\n          </Link>\n\n          {/* Navigation Links */}\n          <div className=\"hidden md:flex items-center space-x-8\">\n            <Link href=\"/\" className=\"text-sm font-medium hover:text-primary transition-colors\">\n              Home\n            </Link>\n            <Link href=\"/games\" className=\"text-sm font-medium hover:text-primary transition-colors\">\n              All Games\n            </Link>\n            <Link href=\"/categories\" className=\"text-sm font-medium hover:text-primary transition-colors\">\n              Categories\n            </Link>\n            <Link href=\"/leaderboard\" className=\"text-sm font-medium hover:text-primary transition-colors\">\n              Leaderboard\n            </Link>\n            <Link href=\"/about\" className=\"text-sm font-medium hover:text-primary transition-colors\">\n              About\n            </Link>\n          </div>\n\n          {/* User Actions */}\n          <div className=\"flex items-center space-x-4\">\n            <Button variant=\"ghost\" size=\"sm\">\n              <User className=\"h-4 w-4 mr-2\" />\n              Play as Guest\n            </Button>\n            <Button size=\"sm\">\n              Sign Up\n            </Button>\n            <Button variant=\"ghost\" size=\"sm\" className=\"md:hidden\">\n              <Menu className=\"h-4 w-4\" />\n            </Button>\n          </div>\n        </div>\n      </div>\n    </nav>\n  );\n}",
+      "props": [],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801502": {
+      "phoenixId": "phoenix-1757713801502",
+      "componentName": "QueryProvider",
+      "filePath": "src/components/query-provider.tsx",
+      "lineNumber": 6,
+      "columnNumber": 7,
+      "sourceCode": "export function QueryProvider({ children }: { children: React.ReactNode }) {\n  const [queryClient] = useState(() => new QueryClient())\n\n  return (\n    <QueryClientProvider client={queryClient}>\n      {children}\n    </QueryClientProvider>\n  )\n}",
+      "props": [
+        {
+          "name": "children",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "state-management"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "hooks": [
+          "useState"
+        ],
+        "complexity": "moderate"
+      }
+    },
+    "phoenix-1757713801503": {
+      "phoenixId": "phoenix-1757713801503",
+      "componentName": "ThemeProvider",
+      "filePath": "src/components/theme-provider.tsx",
+      "lineNumber": 6,
+      "columnNumber": 7,
+      "sourceCode": "export function ThemeProvider({\n  children,\n  ...props\n}: React.ComponentProps<typeof NextThemesProvider>) {\n  return <NextThemesProvider {...props}>{children}</NextThemesProvider>\n}",
+      "props": [
+        {
+          "name": "children",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "simple"
+      }
+    },
+    "phoenix-1757713801504": {
+      "phoenixId": "phoenix-1757713801504",
+      "componentName": "Badge",
+      "filePath": "src/components/ui/badge.tsx",
+      "lineNumber": 30,
+      "columnNumber": 0,
+      "sourceCode": "function Badge({ className, variant, ...props }: BadgeProps) {\n  return (\n    <div className={cn(badgeVariants({ variant }), className)} {...props} />\n  )\n}",
+      "props": [
+        {
+          "name": "className",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "moderate"
+      }
+    },
+    "phoenix-1757713801505": {
+      "phoenixId": "phoenix-1757713801505",
+      "componentName": "Calendar",
+      "filePath": "src/components/ui/calendar.tsx",
+      "lineNumber": 10,
+      "columnNumber": 0,
+      "sourceCode": "function Calendar({\n  className,\n  classNames,\n  showOutsideDays = true,\n  ...props\n}: CalendarProps) {\n  return (\n    <DayPicker\n      showOutsideDays={showOutsideDays}\n      className={cn(\"p-3\", className)}\n      classNames={{\n        months: \"flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0\",\n        month: \"space-y-4\",\n        caption: \"flex justify-center pt-1 relative items-center\",\n        caption_label: \"text-sm font-medium\",\n        nav: \"space-x-1 flex items-center\",\n        nav_button: cn(\n          buttonVariants({ variant: \"outline\" }),\n          \"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100\"\n        ),\n        nav_button_previous: \"absolute left-1\",\n        nav_button_next: \"absolute right-1\",\n        table: \"w-full border-collapse space-y-1\",\n        head_row: \"flex\",\n        head_cell:\n          \"text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]\",\n        row: \"flex w-full mt-2\",\n        cell: \"h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20\",\n        day: cn(\n          buttonVariants({ variant: \"ghost\" }),\n          \"h-9 w-9 p-0 font-normal aria-selected:opacity-100\"\n        ),\n        day_range_end: \"day-range-end\",\n        day_selected:\n          \"bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground\",\n        day_today: \"bg-accent text-accent-foreground\",\n        day_outside:\n          \"day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30\",\n        day_disabled: \"text-muted-foreground opacity-50\",\n        day_range_middle:\n          \"aria-selected:bg-accent aria-selected:text-accent-foreground\",\n        day_hidden: \"invisible\",\n        ...classNames,\n      }}\n      components={{\n        Chevron: (props) => props.orientation === 'left' ? <ChevronLeft className=\"h-4 w-4\" /> : <ChevronRight className=\"h-4 w-4\" />,\n      }}\n      {...props}\n    />\n  );\n}",
+      "props": [
+        {
+          "name": "className",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "classNames",
+          "type": "unknown",
+          "required": false
+        },
+        {
+          "name": "showOutsideDays",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change",
+        "careful-modification",
+        "test-thoroughly"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "complex"
+      }
+    },
+    "phoenix-1757713801506": {
+      "phoenixId": "phoenix-1757713801506",
+      "componentName": "Skeleton",
+      "filePath": "src/components/ui/skeleton.tsx",
+      "lineNumber": 3,
+      "columnNumber": 0,
+      "sourceCode": "function Skeleton({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      className={cn(\"animate-pulse rounded-md bg-muted\", className)}\n      {...props}\n    />\n  )\n}",
+      "props": [
+        {
+          "name": "className",
+          "type": "unknown",
+          "required": false
+        }
+      ],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "complexity": "simple"
+      }
+    },
+    "phoenix-1757713801507": {
+      "phoenixId": "phoenix-1757713801507",
+      "componentName": "Toaster",
+      "filePath": "src/components/ui/toaster.tsx",
+      "lineNumber": 13,
+      "columnNumber": 7,
+      "sourceCode": "export function Toaster() {\n  const { toasts } = useToast()\n\n  return (\n    <ToastProvider>\n      {toasts.map(function ({ id, title, description, action, ...props }) {\n        return (\n          <Toast key={id} {...props}>\n            <div className=\"grid gap-1\">\n              {title && <ToastTitle>{title}</ToastTitle>}\n              {description && (\n                <ToastDescription>{description}</ToastDescription>\n              )}\n            </div>\n            {action}\n            <ToastClose />\n          </Toast>\n        )\n      })}\n      <ToastViewport />\n    </ToastProvider>\n  )\n}",
+      "props": [],
+      "imports": [],
+      "modificationHints": [
+        "text-update",
+        "style-change"
+      ],
+      "astAnalysis": {
+        "componentType": "functional",
+        "hooks": [
+          "useToast"
+        ],
+        "complexity": "moderate"
+      }
+    }
+  },
+  "stats": {
+    "totalComponents": 18,
+    "totalFiles": 70,
+    "processingTimeMs": 752
+  }
+}

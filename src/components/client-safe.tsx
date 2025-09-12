@@ -5,7 +5,7 @@ import { ReactNode, ComponentType } from 'react'
 
 // Utility for safely loading browser-only components
 // This prevents SSR crashes when components use window, navigator, localStorage, etc.
-export function createClientSafeComponent<P = {}>(
+export function createClientSafeComponent<P = Record<string, unknown>>(
   loader: () => Promise<{ default: ComponentType<P> }>,
   fallback?: ReactNode
 ) {
