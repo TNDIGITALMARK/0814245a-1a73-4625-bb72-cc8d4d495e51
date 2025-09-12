@@ -39,6 +39,19 @@ All colors MUST be HSL.
 
   --radius: 0.5rem;
 
+  /* Gaming Typography */
+  --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-body: 'Open Sans', system-ui, -apple-system, sans-serif;
+  --font-game-ui: 'Roboto Condensed', system-ui, -apple-system, sans-serif;
+
+  /* Gaming-specific color tokens */
+  --gaming-neon: 292 84% 61%;
+  --gaming-electric: 195 100% 50%;
+  --gaming-success: 142 76% 36%;
+  --gaming-warning: 38 92% 50%;
+  --gaming-dark-bg: 0 0% 10%;
+  --gaming-light-bg: 0 0% 98%;
+
   --sidebar-background: 0 0% 98%;
   --sidebar-foreground: 240 5.3% 26.1%;
   --sidebar-primary: 240 5.9% 10%;
@@ -203,4 +216,212 @@ body {
 
 .game-loading {
   animation: game-loading 2s infinite;
+}
+
+/* Typography Classes */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.font-game-ui {
+  font-family: var(--font-game-ui);
+  font-weight: 500;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+/* Gaming UI Components */
+.game-button {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--gaming-electric)));
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  color: white;
+  font-family: var(--font-game-ui);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px -3px rgba(74, 45, 239, 0.4);
+}
+
+.game-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px -3px rgba(74, 45, 239, 0.6);
+}
+
+.game-button:active {
+  transform: translateY(0);
+}
+
+/* Neon glow effects */
+.neon-glow {
+  box-shadow: 
+    0 0 5px hsl(var(--primary)),
+    0 0 10px hsl(var(--primary)),
+    0 0 15px hsl(var(--primary)),
+    0 0 20px hsl(var(--primary));
+}
+
+.neon-text {
+  color: hsl(var(--primary));
+  text-shadow: 
+    0 0 10px hsl(var(--primary)),
+    0 0 20px hsl(var(--primary)),
+    0 0 40px hsl(var(--primary));
+}
+
+/* Score and stats styling */
+.score-display {
+  font-family: var(--font-game-ui);
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Leaderboard styling */
+.leaderboard-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-family: var(--font-game-ui);
+  font-weight: 700;
+}
+
+.leaderboard-rank.gold {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #8b4513;
+}
+
+.leaderboard-rank.silver {
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+  color: #4a4a4a;
+}
+
+.leaderboard-rank.bronze {
+  background: linear-gradient(135deg, #cd7f32, #daa520);
+  color: #2f1b14;
+}
+
+/* Game category icons and styling */
+.category-card {
+  background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)));
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  border-color: hsl(var(--primary));
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px -5px rgba(74, 45, 239, 0.3);
+}
+
+/* Achievement system styles */
+.achievement-unlock {
+  background: linear-gradient(135deg, hsl(var(--gaming-success)), hsl(var(--gaming-electric)));
+  animation: achievement-unlock 0.8s ease-out;
+}
+
+@keyframes achievement-unlock {
+  0% {
+    transform: scale(0.8) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Mobile game controls */
+.mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.control-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(74, 45, 239, 0.8);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px -3px rgba(74, 45, 239, 0.4);
+  touch-action: manipulation;
+}
+
+.control-button:active {
+  background: rgba(74, 45, 239, 1);
+  transform: scale(0.95);
+}
+
+/* Game performance indicators */
+.fps-counter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #00ff00;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: var(--font-game-ui);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Social sharing animations */
+.share-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.share-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.share-button:active::after {
+  width: 300px;
+  height: 300px;
 }

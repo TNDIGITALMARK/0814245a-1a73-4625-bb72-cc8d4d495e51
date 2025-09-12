@@ -1,0 +1,124 @@
+{
+  "name": "GameHub - Ultimate Mini-Games Platform",
+  "short_name": "GameHub",
+  "description": "Your ultimate destination for browser-based mini-games. Play, compete, and connect with gamers worldwide.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A2DEF",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "/generated/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/generated/logo.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/generated/logo.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/generated/logo.png",
+      "sizes": "96x96", 
+      "type": "image/png"
+    },
+    {
+      "src": "/generated/logo.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/generated/logo.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Featured Games",
+      "short_name": "Featured", 
+      "description": "Play featured games",
+      "url": "/games?featured=true",
+      "icons": [
+        {
+          "src": "/generated/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Leaderboards",
+      "short_name": "Rankings",
+      "description": "View global leaderboards", 
+      "url": "/leaderboards",
+      "icons": [
+        {
+          "src": "/generated/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Achievements",
+      "short_name": "Badges",
+      "description": "Track your achievements",
+      "url": "/achievements", 
+      "icons": [
+        {
+          "src": "/generated/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/homepage.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "GameHub Homepage"
+    },
+    {
+      "src": "/screenshots/games.png", 
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow", 
+      "label": "Games Library"
+    },
+    {
+      "src": "/screenshots/gameplay.png",
+      "sizes": "1280x720", 
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Game Playing Experience"
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "dir": "ltr",
+  "protocol_handlers": [
+    {
+      "protocol": "web+gamehub",
+      "url": "/game/%s"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "navigate-new"
+  }
+}

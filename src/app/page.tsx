@@ -19,7 +19,7 @@ export default function HomePage() {
       <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20 px-4">
         <div className="container max-w-6xl mx-auto text-center">
           <div className="mb-8">
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="font-heading text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Welcome to GameHub
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -67,7 +67,7 @@ export default function HomePage() {
       {/* Game Categories */}
       <section className="py-16 px-4">
         <div className="container max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Game Categories</h2>
+          <h2 className="font-heading text-3xl font-bold text-center mb-12">Game Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {gameCategories.map((category) => (
               <Link key={category.id} href={`/categories/${category.id}`}>
@@ -96,7 +96,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <Trophy className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl font-bold">Featured Games</h2>
+              <h2 className="font-heading text-3xl font-bold">Featured Games</h2>
             </div>
             <Button variant="outline" asChild>
               <Link href="/featured">View All</Link>
@@ -116,7 +116,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <Star className="w-8 h-8 text-secondary" />
-              <h2 className="text-3xl font-bold">New Games</h2>
+              <h2 className="font-heading text-3xl font-bold">New Games</h2>
             </div>
             <Button variant="outline" asChild>
               <Link href="/new">View All</Link>
@@ -136,7 +136,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <TrendingUp className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl font-bold">Most Popular</h2>
+              <h2 className="font-heading text-3xl font-bold">Most Popular</h2>
             </div>
             <Button variant="outline" asChild>
               <Link href="/popular">View All</Link>
@@ -153,7 +153,7 @@ export default function HomePage() {
       {/* Call to Action */}
       <section className="py-16 px-4">
         <div className="container max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Start Playing?</h2>
+          <h2 className="font-heading text-3xl font-bold mb-4">Ready to Start Playing?</h2>
           <p className="text-xl text-muted-foreground mb-8">
             Join thousands of players enjoying our collection of free browser games!
           </p>
