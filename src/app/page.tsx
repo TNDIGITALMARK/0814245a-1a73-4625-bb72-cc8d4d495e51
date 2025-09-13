@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { GameCard } from "@/components/game-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,33 +18,53 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20 px-4">
-        <div className="container max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <h1 className="font-heading text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Welcome to GameHub
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Play the best collection of free browser-based mini-games. 
-              From puzzles to arcade classics, find your next favorite game!
-            </p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              <Button size="lg" className="gap-2" asChild>
-                <Link href="#featured">
-                  <Play className="w-5 h-5" />
-                  Start Playing
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="gap-2" asChild>
-                <Link href="/categories">
-                  <Gamepad2 className="w-5 h-5" />
-                  Browse Games
-                </Link>
-              </Button>
+        <div className="container max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            {/* Hero Content */}
+            <div className="flex-1 text-center lg:text-left">
+              <div className="mb-8">
+                <h1 className="font-heading text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  Welcome to GameHub
+                </h1>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8">
+                  Play the best collection of free browser-based mini-games. 
+                  From puzzles to arcade classics, find your next favorite game!
+                </p>
+                <div className="flex items-center justify-center lg:justify-start gap-4 flex-wrap">
+                  <Button size="lg" className="gap-2" asChild>
+                    <Link href="#featured">
+                      <Play className="w-5 h-5" />
+                      Start Playing
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="lg" className="gap-2" asChild>
+                    <Link href="/categories">
+                      <Gamepad2 className="w-5 h-5" />
+                      Browse Games
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Hero Image */}
+            <div className="flex-1 flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl transform scale-110"></div>
+                <Image
+                  src="/currentImgContext/5dd5e9c559c0209f0611e583376c1e51.jpg"
+                  alt="GameHub Mascot - Gaming Dog"
+                  width={400}
+                  height={400}
+                  className="hero-mascot relative z-10 rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300 border-4 border-primary/20"
+                  priority
+                />
+              </div>
             </div>
           </div>
           
           {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-16">
             <div className="text-center">
               <div className="text-2xl font-bold text-primary">50+</div>
               <div className="text-sm text-muted-foreground">Games</div>

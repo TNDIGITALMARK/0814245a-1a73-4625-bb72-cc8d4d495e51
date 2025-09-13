@@ -3,7 +3,7 @@
     "banana-nano": {
       "command": "node",
       "args": [
-        "/app/dist/mcp/servers/banana-nano-server.mjs"
+        "/Users/tylerthomlinson/Desktop/Synthcore/phoenix-2/mcp/servers/banana-nano-server.mjs"
       ],
       "env": {
         "GEMINI_API_KEY": "AIzaSyDlpnMQc8PqVtwYqmovKetKnDyQshTOr7s",

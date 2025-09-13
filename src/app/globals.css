@@ -425,3 +425,28 @@ body {
   width: 300px;
   height: 300px;
 }
+
+/* Hero mascot image styling */
+.hero-mascot {
+  filter: drop-shadow(0 20px 40px rgba(74, 45, 239, 0.3));
+  transition: all 0.3s ease;
+}
+
+.hero-mascot:hover {
+  filter: drop-shadow(0 25px 50px rgba(74, 45, 239, 0.4));
+}
+
+/* Responsive image container */
+@media (max-width: 1024px) {
+  .hero-mascot {
+    max-width: 300px;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-mascot {
+    max-width: 250px;
+    height: auto;
+  }
+}

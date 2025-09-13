@@ -1,0 +1,7 @@
+# Image Context Placeholder
+
+Original filename: 5dd5e9c559c0209f0611e583376c1e51.jpg
+Intended URL: https://77e93381c682217fcef0325458269ad5.r2.cloudflarestorage.com/phoenix/users/hw8u8FgXeBcQGo9CRezTWmEivX92/projects/0814245a-1a73-4625-bb72-cc8d4d495e51/imageContext/6b7f6631-33fa-421a-8b74-c249cbed1746.jpg
+File type: image/jpeg
+
+Note: This image could not be downloaded but was provided by the user as context for their request.
