@@ -4,8 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { GameCanvas } from "@/components/game-canvas";
-import { GameControls } from "@/components/game-controls";
+import { GameWrapper } from "@/components/game-wrapper";
 import { Leaderboard } from "@/components/leaderboard";
 import { getGameById, mockGames } from "@/lib/mock-data";
 import { 
@@ -89,24 +88,14 @@ export default async function GamePage({ params }: GamePageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Area */}
           <div className="lg:col-span-2">
-            <Card className="mb-6">
-              <CardContent className="p-6">
-                <GameCanvas gameId={game.id} />
-              </CardContent>
-            </Card>
-
-            {/* Game Controls */}
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Gamepad2 className="w-5 h-5" />
-                  Game Controls
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <GameControls controls={game.controls} />
-              </CardContent>
-            </Card>
+            <GameWrapper
+              gameId={game.id}
+              gameTitle={game.title}
+              gameDescription={game.description}
+              difficulty={game.difficulty as "easy" | "medium" | "hard" | "expert"}
+              onScoreUpdate={(score) => console.log('Score updated:', score)}
+              onGameComplete={(score, ...args) => console.log('Game completed:', score, args)}
+            />
 
             {/* Game Description */}
             <Card>

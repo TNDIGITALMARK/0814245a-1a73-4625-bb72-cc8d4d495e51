@@ -8,6 +8,8 @@ export interface Game {
   thumbnail: string;
   rating: number;
   plays: number;
+  playCount: number;
+  averageRating: number;
   releaseDate: string;
   difficulty?: "easy" | "medium" | "hard" | "expert";
   instructions?: string;
@@ -30,7 +32,7 @@ export const gameCategories: GameCategory[] = [
     id: "action",
     name: "Action",
     description: "Fast-paced games with excitement and thrills",
-    icon: "⚔️",
+    icon: "/generated/category-action.png",
     color: "from-red-500 to-red-600",
     gameCount: 45
   },
@@ -38,7 +40,7 @@ export const gameCategories: GameCategory[] = [
     id: "puzzle",
     name: "Puzzle",
     description: "Brain-teasing challenges and logic games",
-    icon: "🧩",
+    icon: "/generated/category-puzzle.png",
     color: "from-blue-500 to-blue-600",
     gameCount: 32
   },
@@ -46,7 +48,7 @@ export const gameCategories: GameCategory[] = [
     id: "arcade",
     name: "Arcade",
     description: "Classic retro-style games and high scores",
-    icon: "🕹️",
+    icon: "/generated/category-arcade.png",
     color: "from-purple-500 to-purple-600",
     gameCount: 28
   },
@@ -54,7 +56,7 @@ export const gameCategories: GameCategory[] = [
     id: "strategy",
     name: "Strategy",
     description: "Tactical thinking and planning games",
-    icon: "♟️",
+    icon: "/generated/category-strategy.png",
     color: "from-green-500 to-green-600",
     gameCount: 19
   },
@@ -62,7 +64,7 @@ export const gameCategories: GameCategory[] = [
     id: "casual",
     name: "Casual",
     description: "Easy-going games for relaxation",
-    icon: "☕",
+    icon: "/generated/category-casual.png",
     color: "from-yellow-500 to-yellow-600",
     gameCount: 56
   },
@@ -70,21 +72,23 @@ export const gameCategories: GameCategory[] = [
     id: "adventure",
     name: "Adventure",
     description: "Explore worlds and embark on journeys",
-    icon: "🗺️",
+    icon: "/generated/category-adventure.png",
     color: "from-indigo-500 to-indigo-600",
     gameCount: 23
   }
 ];
 
-const mockGames: Game[] = [
+export const mockGames: Game[] = [
   {
     id: "puzzle-quest",
     title: "Puzzle Quest",
     description: "Match colorful blocks to create amazing chain reactions and score big points in this addictive puzzle adventure.",
     category: "puzzle",
-    thumbnail: "/game-thumbnails/puzzle-quest.jpg",
+    thumbnail: "/generated/puzzle-quest.jpg",
     rating: 4.8,
     plays: 125430,
+    playCount: 125430,
+    averageRating: 4.8,
     releaseDate: "2024-01-15",
     difficulty: "medium",
     instructions: "Click on groups of 3 or more matching colored blocks to clear them. Create chain reactions for bonus points!",
@@ -97,9 +101,11 @@ const mockGames: Game[] = [
     title: "Neon Runner",
     description: "Race through neon-lit cyber landscapes at breakneck speeds. Avoid obstacles and collect power-ups in this high-octane runner.",
     category: "action",
-    thumbnail: "/game-thumbnails/neon-runner.jpg",
+    thumbnail: "/generated/neon-runner.jpg",
     rating: 4.7,
     plays: 98765,
+    playCount: 98765,
+    averageRating: 4.7,
     releaseDate: "2024-02-03",
     difficulty: "hard",
     instructions: "Use arrow keys to move and jump. Collect neon orbs for speed boosts and avoid the red obstacles!",
@@ -115,6 +121,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/space-defender.jpg",
     rating: 4.9,
     plays: 156789,
+    playCount: 156789,
+    averageRating: 4.9,
     releaseDate: "2023-11-20",
     difficulty: "medium",
     instructions: "Move your spaceship with WASD or arrow keys. Press spacebar to shoot. Collect power-ups to upgrade your weapons!",
@@ -130,6 +138,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/word-wizard.jpg",
     rating: 4.6,
     plays: 87432,
+    playCount: 87432,
+    averageRating: 4.6,
     releaseDate: "2024-03-10",
     difficulty: "easy",
     instructions: "Click and drag to select letters and form words. Longer words give more points and magical energy!",
@@ -145,6 +155,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/treasure-hunter.jpg",
     rating: 4.5,
     plays: 67890,
+    playCount: 67890,
+    averageRating: 4.5,
     releaseDate: "2024-03-22",
     difficulty: "hard",
     instructions: "Use WASD to move your character. Click on objects to interact. Solve puzzles to unlock new areas!",
@@ -160,6 +172,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/bubble-pop.jpg",
     rating: 4.4,
     plays: 234567,
+    playCount: 234567,
+    averageRating: 4.4,
     releaseDate: "2023-08-14",
     difficulty: "easy",
     instructions: "Click on bubbles to pop them. Pop multiple bubbles of the same color for bonus points!",
@@ -175,6 +189,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/ninja-dash.jpg",
     rating: 4.8,
     plays: 143298,
+    playCount: 143298,
+    averageRating: 4.8,
     releaseDate: "2024-01-28",
     difficulty: "expert",
     instructions: "Use arrow keys to move and dash. Press space to perform special ninja abilities. Stay in shadows to remain hidden!",
@@ -190,6 +206,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/city-builder.jpg",
     rating: 4.7,
     plays: 76543,
+    playCount: 76543,
+    averageRating: 4.7,
     releaseDate: "2024-02-14",
     difficulty: "hard",
     instructions: "Click to place buildings and roads. Manage your budget and citizens' happiness to grow your city!",
@@ -205,6 +223,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/memory-match.jpg",
     rating: 4.3,
     plays: 198765,
+    playCount: 198765,
+    averageRating: 4.3,
     releaseDate: "2023-12-05",
     difficulty: "medium",
     instructions: "Click on cards to flip them over. Match pairs to clear them from the board. Complete all matches to win!",
@@ -220,6 +240,8 @@ const mockGames: Game[] = [
     thumbnail: "/game-thumbnails/rhythm-beats.jpg",
     rating: 4.9,
     plays: 187654,
+    playCount: 187654,
+    averageRating: 4.9,
     releaseDate: "2024-03-01",
     difficulty: "medium",
     instructions: "Press the corresponding keys when the beats reach the target line. Perfect timing gives maximum points!",
@@ -353,7 +375,7 @@ export const mockAchievements: Achievement[] = [
     id: "first-game",
     title: "Getting Started",
     description: "Play your first game",
-    icon: "🎮",
+    icon: "/generated/achievement-first-game.png",
     rarity: "common",
     unlockedBy: 45000,
     requirements: "Play any game"
@@ -362,7 +384,7 @@ export const mockAchievements: Achievement[] = [
     id: "high-scorer",
     title: "High Scorer",
     description: "Score over 10,000 points in any game",
-    icon: "🏆",
+    icon: "/generated/achievement-high-scorer.png",
     rarity: "rare",
     unlockedBy: 12000,
     requirements: "Score 10,000+ points"
@@ -371,7 +393,7 @@ export const mockAchievements: Achievement[] = [
     id: "puzzle-master",
     title: "Puzzle Master",
     description: "Complete 50 puzzle games",
-    icon: "🧩",
+    icon: "/generated/achievement-puzzle-master.png",
     rarity: "epic",
     unlockedBy: 3000,
     requirements: "Complete 50 puzzle games"
@@ -380,7 +402,7 @@ export const mockAchievements: Achievement[] = [
     id: "speed-demon",
     title: "Speed Demon",
     description: "Complete a game in under 30 seconds",
-    icon: "⚡",
+    icon: "/generated/achievement-speed-demon.png",
     rarity: "legendary",
     unlockedBy: 500,
     requirements: "Complete game in <30 seconds"
